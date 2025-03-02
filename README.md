@@ -1,43 +1,85 @@
-This project is a simple CRUD API with authentication using FastAPI, following best practices.
+# FastAPI Project
+
+This project is built with FastAPI and includes the following routes:
+
+## Authentication Routes
+
+- **POST /auth/token**: Obtain an access token by providing username and password.
+
+## User Routes
+
+- **POST /users/**: Create a new user.
+- **GET /users/me/**: Get the current authenticated user's information.
+
+## Article Routes
+
+- **POST /articles/**: Create a new article.
+- **GET /articles/**: Get a list of articles.
+- **GET /articles/{article_id}**: Get a specific article by ID.
+- **PUT /articles/{article_id}**: Update a specific article by ID.
+- **DELETE /articles/{article_id}**: Delete a specific article by ID.
 
 ## Setup
 
-1. Clone the repository:
+### Environment Variables
+
+Create environment variable files in the project root by copying the `.env.sample` file:
+
+- **.env** (for development):
+  ```sh
+  cp .env.sample .env
+  ```
+
+- **.env.test** (for testing):
+  ```sh
+  cp .env.sample .env.test
+  ```
+
+Then, adjust the values in the `.env` and `.env.test` files as needed.
+
+### Docker Setup
+
+1. **Build and run the Docker containers**:
     ```sh
-    git clone <repository_url>
-    cd fast-api
+    docker-compose up --build
     ```
 
-2. Create a virtual environment and activate it:
+2. **Run the Alembic migrations**:
     ```sh
-    python3 -m venv venv
-    source venv/bin/activate
+    docker-compose run web alembic upgrade head
     ```
 
-3. Install the dependencies:
+3. **Run the tests**:
+    ```sh
+    docker-compose run web pytest --disable-warnings
+    ```
+
+### Non-Docker Setup
+
+1. **Install dependencies**:
     ```sh
     pip install -r requirements.txt
     ```
 
-4. Create a `.env` file and add your secret key:
-    ```env
-    SECRET_KEY=your_secret_key
+2. **Set up the database**:
+    - Ensure you have PostgreSQL installed and running.
+
+3. **Run the Alembic migrations**:
+    ```sh
+    alembic upgrade head
     ```
 
-5. Run the application:
+4. **Run the application**:
     ```sh
     uvicorn app.main:app --reload
     ```
 
-## Running Tests
+5. **Run the tests**:
+    ```sh
+    ENV_TEST=1 pytest --disable-warnings
+    ```
 
-To run the tests, use the following command:
-```sh
-pytest
-```
+## Access the API documentation
 
-## Endpoints
-
-- `POST /token`: Obtain a token by providing username and password.
-- `POST /users/`: Create a new user.
-- `GET /users/me/`: Get the current authenticated user's information.
+- Swagger UI: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
+- ReDoc: [http://127.0.0.1:8000/redoc](http://127.0.0.1:8000/redoc)
