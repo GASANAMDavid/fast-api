@@ -1,7 +1,7 @@
 """Rename items to articles
 
 Revision ID: d6fb483a008f
-Revises: f5736ede362c
+Revises: 05daa24550bd
 Create Date: 2025-03-02 10:33:42.381
 
 """
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 # revision identifiers, used by Alembic.
 revision = 'd6fb483a008f'
-down_revision = 'f5736ede362c'
+down_revision = '05daa24550bd'
 branch_labels = None
 depends_on = None
 

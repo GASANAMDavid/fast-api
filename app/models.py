@@ -10,7 +10,7 @@ class User(Base):
     username = Column(String, unique=True, index=True)
     hashed_password = Column(String)
     is_active = Column(Boolean, default=True)
-    items = relationship("Article", back_populates="owner")
+    articles = relationship("Article", back_populates="owner")
 
 
 class Article(Base):
@@ -21,4 +21,4 @@ class Article(Base):
     description = Column(String, index=True)
     owner_id = Column(Integer, ForeignKey("users.id"))
 
-    owner = relationship("User", back_populates="items")
+    owner = relationship("User", back_populates="articles")
